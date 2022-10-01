@@ -1,7 +1,7 @@
 # Importing Required libraries & Modules
 from tkinter import *
-from tkinter import messagebox
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
+
 #RunCode Things
 FileTypes2022 = (("All Files","*.*"),("Text Files","*.txt"),("Python Files","*.py"))
 #Run Defs
@@ -137,11 +137,12 @@ class TextEditor:
   def settitle(self):
     # Checking if Filename is not None
     if self.filename:
-      # Updating Title as filename
-      self.title.set(self.filename)
+        # Updating Title as filename
+        self.title.set(self.filename)
     else:
-      # Updating Title as Untitled
-      self.title.set("Untitled")
+        # Updating Title as Untitled
+        self.title.set("Untitled")
+    print(self.filename)
 
   # Defining New file Function
   def newfile(self,*args):
@@ -222,15 +223,42 @@ class TextEditor:
       # Updating Status
       self.status.set("Saved Successfully")
     except Exception as e:
-      messagebox.showerror("Exception",e)
+        print(e)
+        if (e != "[Errno 2] No such file or directory: ''"):
+            messagebox.showerror("Exception",e)
 
   # Defining Exit Funtion
   def exit(self,*args):
-    op = messagebox.askyesno("WARNING","Your Unsaved Data May be Lost!!")
-    if op>0:
-      self.root.destroy()
+    print(self.filename)
+    if (self.filename == None):
+        print("1st check complete")
+        print(self.txtarea.get("1.0",END))
+        if (self.txtarea.get("1.0",END) == "\n"):
+            print("2nd check complete")
+            self.root.destroy()
+        else:
+            print("Ok.")
+            SaveQuestion2022 = messagebox.askyesno("Save?","Do you want to save? If you don't, changes will be lost")
+            if (SaveQuestion2022 == 0):
+                self.root.destroy()
+            else:
+                self.saveasfile()
+                self.root.destroy()
+    #elif (self.filename != None):
+    #    print("2nd option")
+    #    CheckFile = open(self.filename, "r")
+    #    print(self.txtarea.get("1.0",END))
+    #    print("Serperator")
+    #    print(CheckFile.read())
+    #    if (self.txtarea.get("1.0",END)+"\n" == CheckFile.read()):
+    #        self.root.destroy()
     else:
-      return
+        SaveQuestion2022 = messagebox.askyesno("Save?","Do you want to save? If you don't, changes will be lost")
+        if (SaveQuestion2022 == 0):
+            self.root.destroy()
+        else:
+            self.savefile()
+            self.root.destroy()
 
   # Defining Cut Funtion
   def cut(self,*args):
