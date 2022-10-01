@@ -73,6 +73,23 @@ class TextEditor:
     # Cascading editmenu to menubar
     self.menubar.add_cascade(label="Edit", menu=self.editmenu)
 
+    # Creating Run Menu
+    self.runmenu = Menu(self.menubar,font=("times new roman",12,"bold"),activebackground="skyblue",tearoff=0)
+    # Adding Python Command
+    self.runmenu.add_command(label="New",accelerator="Ctrl+Alt+P",command=self.newfile)
+    # Adding Python-SSH Command
+    self.runmenu.add_command(label="Open",accelerator="Ctrl+Alt+S",command=self.openfile)
+    # Adding C/C++ Command
+    self.runmenu.add_command(label="Save",accelerator="Ctrl+S",command=self.savefile)
+    # Adding Save As file Command
+    self.runmenu.add_command(label="Save As",accelerator="Ctrl+A",command=self.saveasfile)
+    ## Adding Seprator
+    #self.runmenu.add_separator()
+    ## Adding Exit window Command
+    #self.runmenu.add_command(label="Exit",accelerator="Ctrl+E",command=self.exit)
+    ## Cascading filemenu to menubar
+    self.menubar.add_cascade(label="Run", menu=self.runmenu)
+
     # Creating Help Menu
     self.helpmenu = Menu(self.menubar,font=("times new roman",12,"bold"),activebackground="skyblue",tearoff=0)
     # Adding About Command
