@@ -2,7 +2,17 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
-
+#RunCode Things
+FileTypes2022 = (("All Files","*.*"),("Text Files","*.txt"),("Python Files","*.py"))
+#Run Defs
+def PyRun():
+    messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
+def JavaRun():
+    messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
+def CRun():
+    messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
+def RubyRun():
+    messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
 # Defining TextEditor Class
 class TextEditor:
 
@@ -73,17 +83,29 @@ class TextEditor:
     # Cascading editmenu to menubar
     self.menubar.add_cascade(label="Edit", menu=self.editmenu)
 
+    """
+        C and C++
+        Python
+        Java
+        #Html, Css, JS
+        #Bash
+        Ruby
+
+    """
+    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # Creating Run Menu
     self.runmenu = Menu(self.menubar,font=("times new roman",12,"bold"),activebackground="skyblue",tearoff=0)
     # Adding Python Command
-    self.runmenu.add_command(label="New",accelerator="Ctrl+Alt+P",command=self.newfile)
-    # Adding Python-SSH Command
-    self.runmenu.add_command(label="Open",accelerator="Ctrl+Alt+S",command=self.openfile)
+    self.runmenu.add_command(label="Run with Python",command=PyRun)
+    # Adding Java Command
+    self.runmenu.add_command(label="Run with Java",command=JavaRun)
     # Adding C/C++ Command
-    self.runmenu.add_command(label="Save",accelerator="Ctrl+S",command=self.savefile)
-    # Adding Save As file Command
-    self.runmenu.add_command(label="Save As",accelerator="Ctrl+A",command=self.saveasfile)
-    ## Adding Seprator
+    self.runmenu.add_command(label="Run with C/C++",command=CRun)
+    # Adding Ruby file Command
+    self.runmenu.add_command(label="Run with Ruby",command=RubyRun)
+    ## Adding Seperator
     #self.runmenu.add_separator()
     ## Adding Exit window Command
     #self.runmenu.add_command(label="Exit",accelerator="Ctrl+E",command=self.exit)
@@ -137,7 +159,7 @@ class TextEditor:
     # Exception handling
     try:
       # Asking for file to open
-      self.filename = filedialog.askopenfilename(title = "Select file",filetypes = (("All Files","*.*"),("Text Files","*.txt"),("Python Files","*.py")))
+      self.filename = filedialog.askopenfilename(title = "Select file",filetypes = FileTypes2022)
       # checking if filename not none
       if self.filename:
         # opening file in readmode
@@ -184,7 +206,7 @@ class TextEditor:
     # Exception handling
     try:
       # Asking for file name and type to save
-      untitledfile = filedialog.asksaveasfilename(title = "Save file As",defaultextension=".txt",initialfile = "Untitled.txt",filetypes = (("All Files","*.*"),("Text Files","*.txt"),("Python Files","*.py")))
+      untitledfile = filedialog.asksaveasfilename(title = "Save file As",defaultextension=".txt",initialfile = "Untitled.txt",filetypes = FileTypes2022)
       # Reading the data from text area
       data = self.txtarea.get("1.0",END)
       # opening File in write mode
@@ -277,7 +299,6 @@ class TextEditor:
     self.txtarea.bind("<Control-v>",self.paste)
     # Binding Ctrl+u to undo funtion
     self.txtarea.bind("<Control-u>",self.undo)
-
 # Creating TK Container
 root = Tk()
 # Passing Root to TextEditor Class
