@@ -1,12 +1,10 @@
 # Importing Required libraries & Modules
 from tkinter import *
 from tkinter import filedialog, messagebox
-
+import subprocess
 #RunCode Things
 FileTypes2022 = (("All Files","*.*"),("Text Files","*.txt"),("Python Files","*.py"))
 #Run Defs
-def PyRun():
-    messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
 def JavaRun():
     messagebox.showerror("Not Coded Yet","Sorry,\nthis feature does not exist.")
 def CRun():
@@ -21,7 +19,7 @@ class TextEditor:
     # Assigning root
     self.root = root
     # Title of the window
-    self.root.title("GoldWeb IDE")
+    self.root.title("GregNet IDE")
     # Window Geometry
     self.root.geometry("1200x700+200+150")
     # Initializing filename
@@ -98,7 +96,7 @@ class TextEditor:
     # Creating Run Menu
     self.runmenu = Menu(self.menubar,font=("times new roman",12,"bold"),activebackground="skyblue",tearoff=0)
     # Adding Python Command
-    self.runmenu.add_command(label="Run with Python",command=PyRun)
+    self.runmenu.add_command(label="Run with Python",command=self.PyRun)
     # Adding Java Command
     self.runmenu.add_command(label="Run with Java",command=JavaRun)
     # Adding C/C++ Command
@@ -132,7 +130,8 @@ class TextEditor:
 
     # Calling shortcuts funtion
     self.shortcuts()
-
+  def PyRun(self):
+    subprocess.run('python', (self.filename))
   # Defining settitle function
   def settitle(self):
     # Checking if Filename is not None
@@ -178,6 +177,7 @@ class TextEditor:
         self.status.set("Opened Successfully")
     except Exception as e:
       messagebox.showerror("Exception",e)
+      print(e)
 
   # Defining Save File Funtion
   def savefile(self,*args):
@@ -201,6 +201,7 @@ class TextEditor:
         self.saveasfile()
     except Exception as e:
       messagebox.showerror("Exception",e)
+      print(e)
 
   # Defining Save As File Funtion
   def saveasfile(self,*args):
@@ -223,9 +224,12 @@ class TextEditor:
       # Updating Status
       self.status.set("Saved Successfully")
     except Exception as e:
-        print(e)
-        if (e != "[Errno 2] No such file or directory: ''"):
+        if isinstance(e, FileNotFoundError):
+            print("FileNotFound, Passed")
+            return
+        else:
             messagebox.showerror("Exception",e)
+            print(e)
 
   # Defining Exit Funtion
   def exit(self,*args):
@@ -302,6 +306,7 @@ class TextEditor:
         self.status.set("Undone Successfully")
     except Exception as e:
       messagebox.showerror("Exception",e)
+      print(e)
 
   # Defining About Funtion
   def infoabout(self):
@@ -331,5 +336,7 @@ class TextEditor:
 root = Tk()
 # Passing Root to TextEditor Class
 TextEditor(root)
-# Root Window Looping
+# Root Window 
+p1 = PhotoImage(file = "GoldWeb.png")
+root.iconphoto(True, p1)   
 root.mainloop()
